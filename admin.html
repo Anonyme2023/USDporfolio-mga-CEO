@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Administrateur</title>
+    <script src="https://kit.fontawesome.com/093708b09e.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* Fond clair */
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            width: 100%;
+            max-width: 360px; /* Largeur maximale du formulaire */
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 3px; /* Ajouter du padding à droite pour les icônes */
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #0056b3;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 12px; /* Placer l'icône à droite */
+            top: 50%;
+            transform: translateY(-50%); /* Centrer l'icône verticalement */
+            color: #007BFF;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Connexion Administrateur</h1>
+        <div class="input-box">
+            <input type="text" id="adminId" placeholder="ID Admin" required>
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="input-box">
+            <input type="password" id="adminPassword" placeholder="Mot de passe" required>
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <button class="login-btn" onclick="authenticateAdmin()">Se connecter</button>
+
+        <!-- Message d'erreur/succès -->
+        <p id="message" class="error-message"></p>
+    </section>
+
+    <script>
+        function authenticateAdmin() {
+            const adminId = document.getElementById("adminId").value;
+            const adminPassword = document.getElementById("adminPassword").value;
+            const message = document.getElementById("message");
+
+            // Effacer les messages précédents
+            message.textContent = "";
+
+            // Vérifier si l'ID et le mot de passe correspondent à l'administrateur
+            if (adminId === "crow" && adminPassword === "crow154") {
+                // Redirection vers la page du tableau de bord administrateur
+                message.textContent = "Connexion réussie !";
+                message.className = "success-message";
+                setTimeout(() => {
+                    window.location.href = "admin-dashboard.html"; // Redirection vers le tableau de bord admin
+                }, 1000);
+            } else {
+                // Message d'erreur si ID ou mot de passe incorrect
+                message.textContent = "ID ou mot de passe incorrect.";
+                message.className = "error-message";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Portfolio USDT</title>
+    <script src="https://kit.fontawesome.com/093708b09e.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* Fond plus clair */
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            width: 100%;
+            max-width: 360px; /* Réduction de la largeur du cadre */
+            margin: 80px auto;
+            padding: 20px; /* Moins de padding pour que tout soit bien ajusté */
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px; /* Espacement réduit */
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 3px; /* Ajouter un padding à droite pour ne pas que le texte se cache derrière l'icône */
+            border: 2px solid #007BFF; /* Bordure bleue pour plus de clarté */
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #0056b3; /* Bordure plus foncée lors de la mise au point */
+            background-color: #fff;
+            outline: none;
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 12px; /* Placer l'icône à droite */
+            top: 50%;
+            transform: translateY(-50%); /* Centrer l'icône verticalement */
+            color: #007BFF;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remember-forgot label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .remember-forgot a {
+            font-size: 14px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .exchange-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+        }
+
+        .exchange-info span {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        @media (max-width: 480px) {
+            section {
+                margin: 50px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Connexion</h1>
+        <div class="input-box">
+            <input type="text" id="username" placeholder="Nom d'utilisateur">
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="input-box">
+            <input type="password" id="password" placeholder="Mot de passe">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="remember-forgot">
+            <label><input type="checkbox"> Se souvenir de moi</label>
+            <a href="#">Mot de passe oublié ?</a>
+        </div>
+        <button class="login-btn" onclick="authenticateUser()">Se connecter</button>
+
+        <!-- Message d'erreur/succès -->
+        <p id="message" class="error-message"></p>
+
+        <div class="register-link">
+            <p>Pas de compte ? <a href="inscrition.html">Inscription</a></p>
+        </div>
+
+        <!-- Information sur le service d'échange USDT vers MGA -->
+        <div class="exchange-info">
+            <p>Convertissez et échangez Tether (USDT) en Malagasy Ariary (MGA)<br>
+                Taux de change actuel : <span>1 USDT = 4 800,74 MGA</span>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function authenticateUser() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            // Efface les messages précédents
+            message.textContent = "";
+
+            // Récupérer tous les utilisateurs stockés dans le localStorage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Chercher un utilisateur correspondant à ces informations
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                // Vérifier si l'utilisateur est un administrateur (par exemple avec un nom d'utilisateur spécifique)
+                if (user.username === "admin") {
+                    // Si c'est un administrateur, rediriger vers la page d'administration
+                    message.textContent = "Connexion réussie en tant qu'administrateur !";
+                    message.className = "success-message";
+                    setTimeout(() => {
+                        window.location.href = "admin.html"; // Redirection vers la page d'administration
+                    }, 1000);
+                } else {
+                    // Si c'est un utilisateur normal, rediriger vers son propre tableau de bord
+                    message.textContent = "Connexion réussie !";
+                    message.className = "success-message";
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html"; // Redirection vers le tableau de bord de l'utilisateur
+                    }, 1000);
+                }
+            } else {
+                // Si l'utilisateur n'est pas trouvé, afficher un message d'erreur
+                message.textContent = "Nom d'utilisateur ou mot de passe incorrect.";
+                message.className = "error-message";
+            }
+        }
+    </script>
+</body>
+</html>

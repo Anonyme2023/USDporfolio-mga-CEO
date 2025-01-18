@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Style du tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        td button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        td button:hover {
+            background-color: #e53935;
+        }
+
+        td.activate-btn {
+            background-color: #4CAF50;
+            cursor: pointer;
+        }
+
+        td.activate-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Message de confirmation */
+        #message {
+            color: green;
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tableau de Bord Administrateur</h1>
+    <h2>Liste des Utilisateurs Enregistrés</h2>
+
+    <!-- Message de confirmation -->
+    <p id="message"></p>
+
+    <!-- Tableau des utilisateurs -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="user-list">
+            <!-- Liste des utilisateurs affichée ici -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fonction pour afficher les utilisateurs dans le tableau
+        function displayUsers() {
+            const userList = document.getElementById("user-list");
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Vider le tableau pour éviter les doublons
+            userList.innerHTML = "";
+
+            // Ajouter chaque utilisateur dans une ligne de tableau
+            users.forEach(user => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td id="status-${user.username}">${user.status || "Non vérifié"}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteUser('${user.username}')">Supprimer</button>
+                        <button class="activate-btn" onclick="activateUser('${user.username}')">Activer</button>
+                    </td>
+                `;
+                userList.appendChild(row);
+            });
+        }
+
+        // Fonction pour supprimer un utilisateur
+        function deleteUser(username) {
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            const deletedUser = users.find(user => user.username === username);
+
+            if (deletedUser) {
+                // Supprimer l'utilisateur de la liste
+                users = users.filter(user => user.username !== username);
+                localStorage.setItem("users", JSON.stringify(users));
+
+                // Affichage du message
+                const message = document.getElementById("message");
+                message.textContent = `L'utilisateur ${username} a été supprimé avec succès.`;
+                message.style.color = "green";
+
+                // Rafraîchir la liste des utilisateurs
+                displayUsers();
+            }
+        }
+
+        // Fonction pour activer un utilisateur
+        function activateUser(username) {
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            const user = users.find(user => user.username === username);
+
+            if (user) {
+                user.status = "Actif"; // Modifier le statut en "Actif"
+                localStorage.setItem("users", JSON.stringify(users)); // Sauvegarder les modifications
+
+                // Mise à jour de l'affichage
+                document.getElementById(`status-${username}`).textContent = "Actif";
+
+                // Affichage du message
+                const message = document.getElementById("message");
+                message.textContent = `L'utilisateur ${username} a été activé avec succès.`;
+                message.style.color = "green";
+            }
+        }
+
+        // Appel de la fonction pour afficher les utilisateurs au chargement de la page
+        window.onload = displayUsers;
+    </script>
+
+</body>
+</html>

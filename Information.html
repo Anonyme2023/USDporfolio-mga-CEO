@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations Utilisateur</title>
+    <style>
+        /* Style général */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Menu */
+        .menu {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            float: left;
+        }
+
+        .menu li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .menu li a:hover {
+            background-color: #575757;
+        }
+
+        /* Contenu principal */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Titre */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+
+        /* Message d'alerte */
+        .alert {
+            padding: 10px;
+            background-color: #ffdddd;
+            color: red;
+            border: 1px solid red;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu -->
+    <div class="menu">
+        <ul>
+            <li><a href="verification.html">Vérification</a></li>
+            <li><a href="Depot.html">Dépôt</a></li>
+            <li><a href="Retrait.html">Retrait</a></li>
+            <li><a href="Information.html">Information</a></li>
+            <li><a href="index.html" id="logout">Déconnexion</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h1>Dossier Information</h1>
+
+        <!-- Message d'alerte si aucune information n'est disponible -->
+        <div class="alert" id="alert-message" style="display: none;">
+            Aucune information utilisateur trouvée. Vous allez être redirigé vers la page d'accueil.
+        </div>
+
+        <!-- Table des informations utilisateur -->
+        <table id="user-info-table">
+            <tr>
+                <th>Nom complet</th>
+                <td id="infoFullName">Non renseigné</td>
+            </tr>
+            <tr>
+                <th>Numéro de téléphone</th>
+                <td id="infoPhone">Non renseigné</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td id="infoEmail">Non renseigné</td>
+            </tr>
+                <tr>  
+          
+            </tr>
+            <tr>
+    
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // Fonction pour charger les informations utilisateur
+        function loadUserInfo() {
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Si aucune information n'est trouvée
+            if (users.length === 0) {
+                document.getElementById("alert-message").style.display = "block";
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 3000);
+            } else {
+                // Remplir les informations dans la table
+                const user = users[users.length - 1]; // Prend le dernier utilisateur ajouté
+                document.getElementById('infoFullName').textContent = user.username || "Non renseigné";
+                document.getElementById('infoPhone').textContent = user.phone || "Non renseigné";
+                document.getElementById('infoEmail').textContent = user.email || "Non renseigné";
+               
+                
+            }
+        }
+
+        // Déconnexion
+        document.getElementById("logout").addEventListener("click", () => {
+           
+            window.location.href = "index.html";
+        });
+
+        // Charger les informations au démarrage
+        loadUserInfo();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification de Données - Téléchargement CIN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        /* Style du menu */
+        .menu {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .menu ul li {
+            margin: 0 20px;
+        }
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 16px;
+            display: inline-block;
+        }
+        .menu ul li a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+        /* Contenu principal */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .file-preview {
+            margin: 10px 0;
+            font-style: italic;
+        }
+        #spinner {
+            display: none;
+            margin: 0 auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #successMessage {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu en haut -->
+    <div class="menu">
+        <ul>
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="verification.html">Vérification</a></li>
+            <li><a href="depot.html">Dépôt</a></li>
+            <li><a href="retrait.html">Retrait</a></li>
+            <li><a href="information.html">Informations</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Vérification de Données</h2>
+        <form id="verificationForm" enctype="multipart/form-data">
+            <label for="cinFile">Télécharger une image de votre CIN :</label>
+            <input type="file" id="cinFile" name="cinFile" accept="image/*" required>
+            <div id="cinFileError" class="error" style="display: none;">Veuillez télécharger une image de votre CIN.</div>
+            <div id="filePreview" class="file-preview" style="display: none;">Aperçu du fichier sélectionné: <span id="fileName"></span></div>
+
+            <label for="country">Sélectionnez votre pays :</label>
+            <select id="country" name="country" required>
+                <option value="">Sélectionner un pays</option>
+                <option value="France">France</option>
+                <option value="Maroc">Maroc</option>
+                <option value="Algerie">Algérie</option>
+                <option value="Tunisie">Tunisie</option>
+                <option value="Suisse">Suisse</option>
+                <option value="Madagascar">Madagascar</option>
+                <!-- Vous pouvez ajouter d'autres pays ici -->
+            </select>
+            <div id="countryError" class="error" style="display: none;">Veuillez sélectionner un pays.</div>
+
+            <button type="submit">Soumettre</button>
+            <div id="spinner"></div>
+            <div id="successMessage">Compte vérifié avec succès !</div>
+        </form>
+    </div>
+
+    <script>
+        // Afficher un aperçu du fichier téléchargé
+        document.getElementById('cinFile').addEventListener('change', function() {
+            const fileInput = this;
+            const fileName = document.getElementById('fileName');
+            const filePreview = document.getElementById('filePreview');
+
+            if (fileInput.files && fileInput.files[0]) {
+                fileName.textContent = fileInput.files[0].name;
+                filePreview.style.display = 'block';
+            } else {
+                filePreview.style.display = 'none';
+            }
+        });
+
+        document.getElementById('verificationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Réinitialiser les erreurs et messages précédents
+            document.getElementById('cinFileError').style.display = 'none';
+            document.getElementById('countryError').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('spinner').style.display = 'none';
+
+            // Récupérer les valeurs
+            const cinFile = document.getElementById('cinFile').files[0];
+            const country = document.getElementById('country').value;
+
+            let valid = true;
+
+            // Vérification du fichier CIN
+            if (!cinFile) {
+                document.getElementById('cinFileError').style.display = 'block';
+                valid = false;
+            }
+
+            // Vérification du pays
+            if (!country) {
+                document.getElementById('countryError').style.display = 'block';
+                valid = false;
+            }
+
+            if (valid) {
+                // Afficher le spinner et masquer le bouton de soumission
+                document.getElementById('spinner').style.display = 'block';
+                document.querySelector('button').disabled = true;
+
+                // Simuler un délai de 5 secondes (par exemple, pour simuler le traitement)
+                setTimeout(function() {
+                    // Masquer le spinner et afficher le message de succès
+                    document.getElementById('spinner').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.querySelector('button').disabled = false;
+                }, 5000);
+            }
+        });
+    </script>
+
+</body>
+</html>

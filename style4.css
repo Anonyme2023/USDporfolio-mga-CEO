@@ -1,0 +1,108 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #e80f0f;
+        }
+
+        /* Conteneur principal */
+        .container {
+            background-color: #9a8484f8;
+            box-shadow: 0 4px 8px rgba(230, 4, 4, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #ff0303;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        /* Champs de saisie */
+        input[type="number"], input[type="email"], input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus, input[type="email"]:focus, input[type="text"]:focus, select:focus {
+            border-color: #1c74d3;
+            outline: none;
+        }
+
+        /* Boutons */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1c74d3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background-color: #155d9e;
+        }
+
+        /* Affichage du montant converti */
+        #conversion-result {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #f2f2f2;
+        }
+
+        /* Section des informations de retrait */
+        #withdrawal-info-container {
+            margin-top: 20px;
+        }
+
+        select {
+            background-color: #f9f9f9;
+        }
+
+        
+        @media (max-width: 768px) 
+        container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+ 
+
+         

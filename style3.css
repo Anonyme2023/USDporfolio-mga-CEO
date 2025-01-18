@@ -1,0 +1,132 @@
+/* Corps de la page */
+body {
+    font-family: 'Arial', sans-serif;
+    background: url(IMAGE/image1.jpg);
+    margin: 0;
+    padding: 0;
+    display: flex
+    height: 100vh;
+    color: #333;
+}
+
+/* Conteneur principal */
+.container {
+    width: 100%;
+    max-width: 650px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(58, 255, 9);
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #107103;
+    margin-bottom: 40px;
+}
+
+/* Section des dépôts (BTC, USDT, LTC) */
+.method {
+    background-color: #3674b2;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(244, 5, 5, 0.908);
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Titre des méthodes de dépôt */
+.method h2 {
+    font-size: 24px;
+    color: #0070ba;
+    margin-bottom: 15px;
+}
+
+/* Conteneur pour l'adresse et bouton de copie */
+.address-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Champ de texte pour l'adresse */
+.address {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f4f7fc;
+    color: #15d715;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Effet de focus sur le champ de texte */
+.address:focus {
+    border-color: #0070ba;
+    box-shadow: 0 0 5px rgba(0, 112, 186, 0.4);
+}
+
+/* Bouton de copie moderne */
+.btn-copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #0070ba;
+    color: rgb(248, 2, 2);
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(255, 8, 8, 0.965);
+}
+
+/* Effet de survol sur le bouton de copie */
+.btn-copy:hover {
+    background-color: #005f99;
+}
+
+/* Effet de clic sur le bouton de copie */
+.btn-copy:active {
+    transform: scale(0.98);
+}
+
+/* Effet visuel de "copié" sans message alert */
+.btn-copy:after {
+    content: '✓ Copié!';
+    font-size: 14px;
+    margin-left: 10px;
+    color: green;
+    display: none;
+}
+
+/* Style responsive pour les écrans plus petits */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .method h2 {
+        font-size: 20px;
+    }
+
+    .address {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .btn-copy {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

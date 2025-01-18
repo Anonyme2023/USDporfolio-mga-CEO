@@ -1,0 +1,101 @@
+/* Mise en page du formulaire */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: url(IMAGE/image.png);
+    background-position: center;
+    background-size: cover;
+    color: white; /* Couleur du texte en blanc */
+    min-height: 100vh;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Container contenant le formulaire */
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fond légèrement transparent pour le formulaire */
+    padding: 40px;
+    border-radius: 12px; /* Coins arrondis pour le formulaire */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre pour donner de la profondeur */
+    text-align: center;
+    margin-top: 50px; /* Laisse un peu d'espace en haut */
+}
+
+/* Titre */
+.signup-box h1 {
+    font-size: 32px; /* Taille de police agrandie */
+    margin-bottom: 20px;
+    color: #ffffff; /* Couleur du titre en blanc */
+    font-weight: bold;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box input,
+.input-box select {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px; /* Taille de police augmentée */
+    border: 2px solid #ddd;
+    border-radius: 12px; /* Coins arrondis pour les champs de saisie */
+    outline: none;
+    background-color: #f1f1f1; /* Fond léger des champs */
+    color: black; /* Texte en noir dans les champs de saisie */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* Effet de survol et focus des champs de saisie */
+.input-box input:focus,
+.input-box select:focus {
+    border-color: #1877f2; /* Bordure bleue lors du focus */
+    background-color: #ffffff; /* Fond blanc lors du focus */
+}
+
+/* Bouton d'inscription */
+.btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #1877f2;
+    color: white; /* Texte du bouton en blanc */
+    border: none;
+    border-radius: 12px; /* Coins arrondis pour le bouton */
+    font-size: 18px; /* Taille de police plus grande */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #165eab;
+}
+
+/* Lien de connexion */
+.login-link {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #1877f2; /* Bleu du lien de connexion */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Effet de survol pour les éléments de formulaire */
+.input-box input:hover,
+.input-box select:hover {
+    background-color: #f7f7f7;
+}

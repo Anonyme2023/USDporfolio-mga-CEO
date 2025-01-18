@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord</title>
+    <style>
+        /* Style général */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Menu de navigation */
+        .menu {
+            background-color: #2e322e;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .menu ul li {
+            margin: 0 15px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .menu ul li a:hover {
+            color: #ddd;
+        }
+
+        .menu .logout {
+            margin-left: auto;
+        }
+
+        .menu .logout a {
+            color: white;
+            font-weight: bold;
+            background: #e53935;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .menu .logout a:hover {
+            background-color: #c62828;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content {
+                width: 90%;
+            }
+
+            .menu ul {
+                flex-wrap: wrap;
+            }
+
+            .menu ul li {
+                margin: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu en haut -->
+    <div class="menu">
+        <ul>
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="verification.html">Vérification</a></li>
+            <li><a href="depot.html">Dépôt</a></li>
+            <li><a href="retrait.html">Retrait</a></li>
+            <li><a href="information.html">Informations</a></li>
+        </ul>
+        <div class="logout">
+            <a href="index.html">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="content">
+        <h1>Bienvenue sur votre Tableau de Bord</h1>
+        <p>Vous pouvez naviguer entre les différentes sections pour effectuer des dépôts, des retraits, ou gérer vos informations.</p>
+    </div>
+
+</body>
+</html>

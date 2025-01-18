@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrait et Convertisseur Cryptomonnaie</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #conversion-result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        #withdrawal-method-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #withdrawal-info-container {
+            margin-top: 15px;
+        }
+
+        .logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .menu {
+            background-color: #303230;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .menu ul li {
+            margin: 0 15px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .menu ul li a:hover {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            form, #withdrawal-method-container {
+                width: 90%;
+            }
+
+            input, select, button {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu en haut -->
+    <div class="menu">
+        <ul>
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="verification.html">Vérification</a></li>
+            <li><a href="depot.html">Dépôt</a></li>
+            <li><a href="retrait.html">Retrait</a></li>
+            <li><a href="information.html">Informations</a></li>
+        </ul>
+    </div>
+
+    <h1>Retrait et Convertisseur Cryptomonnaie</h1>
+
+    <!-- Formulaire de retrait -->
+    <form id="withdrawal-form">
+        <div>
+            <label for="amount">Montant à retirer (20 - 500) :</label>
+            <input type="number" id="amount" min="0" max="500" placeholder="Entrez un montant" required>
+            <small id="amount-note" style="color: red;"></small>
+        </div>
+
+        <!-- Choisir la cryptomonnaie -->
+        <div>
+            <label for="crypto">Choisir la cryptomonnaie :</label>
+            <select id="crypto">
+                <option value="usdt">USDT (TRC20)</option>
+                <option value="bitcoin">Bitcoin (BTC)</option>
+                <option value="litecoin">Litecoin (LTC)</option>
+            </select>
+        </div>
+
+        <!-- Sélecteur de devise de conversion -->
+        <div>
+            <label for="currency">Choisissez la devise :</label>
+            <select id="currency">
+                <option value="ariary">Ariary</option>
+                <option value="euro">Euro (€)</option>
+                <option value="usd">USD ($)</option>
+            </select>
+        </div>
+
+        <button type="submit">Convertir</button>
+    </form>
+
+    <!-- Affichage du résultat de la conversion -->
+    <div id="conversion-result"></div>
+
+    <!-- Choix du moyen de retrait avec logos -->
+    <div id="withdrawal-method-container">
+        <h2>Choisissez le moyen de retrait</h2>
+        <select id="withdrawal-method"></select>
+        <div id="withdrawal-info-container"></div>
+    </div>
+
+    <script>
+        const conversionRates = {
+            "ariary": 4800,  
+            "euro": 1,        
+            "usd": 1.1,       
+            "usdt": 1,        
+            "bitcoin": 35000, 
+            "litecoin": 150   
+        };
+
+        const withdrawalMethods = {
+            "ariary": [
+                { name: "MVola", logo: "mvola_logo.png" },
+                { name: "Orange", logo: "orange_logo.png" },
+                { name: "Airtel", logo: "airtel_logo.png" }
+            ],
+            "euro": [
+                { name: "PayPal", logo: "paypal_logo.png" },
+                { name: "Wise", logo: "wise_logo.png" }
+            ],
+            "usd": [
+                { name: "PayPal", logo: "paypal_logo.png" },
+                { name: "Wise", logo: "wise_logo.png" }
+            ],
+            "usdt": [
+                { name: "Cryptocurrency Wallet", logo: "crypto_wallet_logo.png" }
+            ],
+            "bitcoin": [
+                { name: "Cryptocurrency Wallet", logo: "crypto_wallet_logo.png" }
+            ],
+            "litecoin": [
+                { name: "Cryptocurrency Wallet", logo: "crypto_wallet_logo.png" }
+            ]
+        };
+
+        document.getElementById("withdrawal-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const amount = parseFloat(document.getElementById("amount").value);
+            const currency = document.getElementById("currency").value;
+            const crypto = document.getElementById("crypto").value;
+
+            // Vérifier le montant minimum pour USD
+            if (currency === "usd" && amount < 20) {
+                document.getElementById("amount-note").textContent = "Le montant minimum pour un retrait en USD est de 20 $.";
+                return;
+            } else {
+                document.getElementById("amount-note").textContent = "";
+            }
+
+            if (!isNaN(amount) && amount >= 0 && amount <= 500) {
+                const convertedAmount = amount * conversionRates[currency];
+                let currencySymbol = currency === "ariary" ? "Ar" : currency === "euro" ? "€" : "$";
+                document.getElementById("conversion-result").textContent =
+                    `Montant converti: ${convertedAmount.toFixed(2)} ${currencySymbol} en ${crypto}`;
+                updateWithdrawalMethods(currency);
+            } else {
+                document.getElementById("conversion-result").textContent = "Veuillez entrer un montant valide entre 0 et 500.";
+            }
+        });
+
+        function updateWithdrawalMethods(currency) {
+            const methodSelect = document.getElementById("withdrawal-method");
+            const methods = withdrawalMethods[currency] || [];
+            methodSelect.innerHTML = "";
+            methods.forEach(function(method) {
+                const option = document.createElement("option");
+                option.value = method.name;
+                option.innerHTML = `<img src="${method.logo}" class="logo" alt="${method.name}" /> ${method.name}`;
+                methodSelect.appendChild(option);
+            });
+            updateWithdrawalInfo(methods[0]);
+        }
+
+        document.getElementById("withdrawal-method").addEventListener("change", function() {
+            updateWithdrawalInfo(this.value);
+        });
+
+        function updateWithdrawalInfo(selectedMethod) {
+            const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
+            withdrawalInfoContainer.innerHTML = "";
+            if (["MVola", "Orange", "Airtel"].includes(selectedMethod)) {
+                withdrawalInfoContainer.innerHTML = `
+                    <label for="phone-number">${selectedMethod} Numéro de téléphone :</label>
+                    <input type="text" id="phone-number" placeholder="Entrez votre numéro ${selectedMethod}" required>`;
+            } else if (["PayPal", "Wise"].includes(selectedMethod)) {
+                withdrawalInfoContainer.innerHTML = `
+                    <label for="paypal-email">Adresse e-mail PayPal :</label>
+                    <input type="email" id="paypal-email" placeholder="Entrez votre adresse e-mail PayPal" required>`;
+            } else if (["Cryptocurrency Wallet"].includes(selectedMethod)) {
+                withdrawalInfoContainer.innerHTML = `
+                    <label for="wallet-address">Adresse de portefeuille :</label>
+                    <input type="text" id="wallet-address" placeholder="Entrez votre adresse de portefeuille" required>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
