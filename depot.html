@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dépôt Cryptomonnaie</title>
-    <link rel="stylesheet" href="style3.css">
     <style>
         /* Style global */
         body {
@@ -189,7 +188,7 @@
         <div>
             <label for="btc-address">Adresse BTC :</label>
             <input type="text" id="btc-address" value="16DAqeS8j8vp7aWFuYw5kiSAnsPUFTY9Lm" readonly>
-            <button onclick="copyToClipboard('btc-address')">Copier</button>
+            <button onclick="copyToClipboard('btc-address', 'btc-message')">Copier</button>
             <div id="btc-message" class="copy-message">Adresse copiée !</div>
         </div>
 
@@ -197,7 +196,7 @@
         <div>
             <label for="usdt-address">Adresse USDT TRC20 :</label>
             <input type="text" id="usdt-address" value="TN7G7wCoeZz2VTnkAuKjfwAjqj6dsMGqKZ" readonly>
-            <button onclick="copyToClipboard('usdt-address')">Copier</button>
+            <button onclick="copyToClipboard('usdt-address', 'usdt-message')">Copier</button>
             <div id="usdt-message" class="copy-message">Adresse copiée !</div>
         </div>
 
@@ -205,21 +204,21 @@
         <div>
             <label for="ltc-address">Adresse LTC :</label>
             <input type="text" id="ltc-address" value="ltc1q89ccn6w88v04hm9wdgdcjs7dh73cklergkjrem" readonly>
-            <button onclick="copyToClipboard('ltc-address')">Copier</button>
+            <button onclick="copyToClipboard('ltc-address', 'ltc-message')">Copier</button>
             <div id="ltc-message" class="copy-message">Adresse copiée !</div>
         </div>
     </div>
 
     <script>
-        // Fonction pour copier l'adresse dans le presse-papiers
-        function copyToClipboard(elementId) {
+        // Fonction pour copier l'adresse dans le presse-papiers et afficher un message
+        function copyToClipboard(elementId, messageId) {
             const inputField = document.getElementById(elementId);
             inputField.select();
             inputField.setSelectionRange(0, 99999); // Pour mobile
             document.execCommand('copy');
-            
-            // Afficher le message de confirmation
-            const messageElement = document.getElementById(elementId + '-message');
+
+            // Afficher le message de confirmation en rouge
+            const messageElement = document.getElementById(messageId);
             messageElement.style.display = 'block'; // Afficher le message
             setTimeout(() => {
                 messageElement.style.display = 'none'; // Cacher après 2 secondes
