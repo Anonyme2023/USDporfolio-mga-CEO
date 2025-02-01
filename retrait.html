@@ -125,14 +125,13 @@
             text-align: center;
             margin-top: 10px;
         }
-
     </style>
 </head>
 <body class="loaded">
 
     <h1>Retrait & Convertisseur</h1>
 
-    <!-- Formulaire -->
+    <!-- Formulaire de Conversion -->
     <form id="withdrawal-form">
         <label for="amount">Montant (Min 50) :</label>
         <input type="number" id="amount" min="50" max="500" placeholder="Entrez un montant" required>
@@ -174,10 +173,6 @@
 
     <script>
         let accountBalance = 0; // Solde initial
-
-        function toggleMenu() {
-            document.querySelector(".menu").classList.toggle("open");
-        }
 
         // Fonction pour la conversion automatique
         document.addEventListener("DOMContentLoaded", function() {
@@ -222,12 +217,13 @@
             updateConversion();
         });
 
+        // Fonction pour sélectionner la méthode de retrait
         function selectWithdrawalMethod(method) {
             const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
             const withdrawalPhoneContainer = document.getElementById("withdrawal-phone-container");
             const messageWithdrawal = document.getElementById("message-withdrawal");
 
-            withdrawalPhoneContainer.innerHTML = ''; // Reset the input field
+            withdrawalPhoneContainer.innerHTML = ''; // Réinitialiser le champ d'entrée
 
             if (method === 'mvola') {
                 withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
@@ -256,5 +252,5 @@
         }
     </script>
 
-</body>
+</body>  
 </html>
