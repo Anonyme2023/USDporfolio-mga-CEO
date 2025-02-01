@@ -291,7 +291,7 @@
                 let devise = currencySelect.value;
                 let convertedAmount = 0;
 
-                if (!isNaN(montant) && montant >= 50) {
+                if (!isNaN(montant) && montant >= 20) {
                     if (devise === "ariary") {
                         convertedAmount = montant * tauxConversion;
                         conversionResult.textContent = `≈ ${convertedAmount.toLocaleString()} MGA`;
