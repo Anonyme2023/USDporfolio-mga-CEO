@@ -14,6 +14,7 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
+
         body.loaded {
             opacity: 1;
         }
@@ -115,18 +116,26 @@
             display: block;
         }
 
-        #withdrawal-method-container {
+        #withdrawal-methods {
             margin-top: 20px;
             text-align: center;
         }
 
-        select#withdrawal-method {
-            width: 50%;
-            margin: 10px auto;
-            padding: 10px;
-            border: 2px solid #007BFF;
+        #withdrawal-methods button {
+            background-color: #28a745;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
             font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        #withdrawal-methods button:hover {
+            background-color: #218838;
         }
 
         #withdrawal-info-container {
@@ -153,6 +162,48 @@
             font-weight: bold;
             text-align: center;
             margin-top: 10px;
+        }
+
+        /* Style for dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 100%;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #218838;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-button {
+            background-color: #218838;
+        }
+
+        .input-container {
+            display: none;
         }
     </style>
 </head>
@@ -198,18 +249,24 @@
     <!-- Section Retrait -->
     <div id="withdrawal-method-container">
         <h2>Choisissez votre moyen de retrait</h2>
-        <select id="withdrawal-method" onchange="selectWithdrawalMethod(this.value)">
-            <option value="mvola">Mvola</option>
-            <option value="orange">Orange</option>
-            <option value="telma">Telma</option>
-            <option value="airtel">Airtel</option>
-        </select>
+        <div class="dropdown">
+            <button class="dropdown-button">Moyen de retrait</button>
+            <div class="dropdown-content" id="withdrawal-methods">
+                <button type="button" onclick="selectWithdrawalMethod('mvola')">Mvola</button>
+                <button type="button" onclick="selectWithdrawalMethod('orange')">Orange</button>
+                <button type="button" onclick="selectWithdrawalMethod('airtel')">Airtel</button>
+            </div>
+        </div>
 
         <div id="withdrawal-info-container"></div>
+
+        <div id="withdrawal-phone" class="input-container">
+            <label for="withdrawal-phone-input" id="withdrawal-phone-label">Entrez votre numéro de retrait :</label>
+            <input type="text" id="withdrawal-phone-input" placeholder="Numéro de retrait" />
+        </div>
     </div>
 
     <div id="balance-error"></div>
-
     <div id="message-withdrawal"></div>
 
     <script>
@@ -272,6 +329,8 @@
         function selectWithdrawalMethod(method) {
             const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
             const messageWithdrawal = document.getElementById("message-withdrawal");
+            const withdrawalPhoneInput = document.getElementById("withdrawal-phone");
+            const withdrawalPhoneLabel = document.getElementById("withdrawal-phone-label");
 
             if (method === 'mvola') {
                 withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
@@ -279,15 +338,15 @@
             } else if (method === 'orange') {
                 withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
-            } else if (method === 'telma') {
-                withdrawalInfoContainer.innerHTML = `<p>Telma - Exemple de numéro : +261 32 765 4321</p>`;
-                messageWithdrawal.textContent = "Veuillez entrer votre numéro Telma pour effectuer le retrait.";
             } else if (method === 'airtel') {
                 withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
             }
+
+            // Afficher le champ de saisie du numéro en fonction de la méthode choisie
+            withdrawalPhoneInput.style.display = "block";
+            withdrawalPhoneLabel.style.display = "block";
         }
     </script>
-
 </body>
 </html>
