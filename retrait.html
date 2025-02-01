@@ -6,7 +6,7 @@
     <title>Retrait et Convertisseur</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #1E90FF; /* Bleu vif */
@@ -73,49 +73,6 @@
             margin-top: 10px;
         }
 
-        .menu {
-            background-color: #003366;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-        }
-
-        .menu button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none;
-            background: #002244;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            top: 45px;
-        }
-
-        .menu ul li {
-            padding: 10px;
-            border-bottom: 1px solid #0056b3;
-        }
-
-        .menu ul li a {
-            text-decoration: none;
-            color: white;
-            font-size: 1.2em;
-            display: block;
-        }
-
-        .menu.open ul {
-            display: block;
-        }
-
         #withdrawal-methods {
             margin-top: 20px;
             text-align: center;
@@ -150,6 +107,11 @@
             font-size: 1.2em;
         }
 
+        #withdrawal-phone-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
         #balance-error {
             color: red;
             font-weight: bold;
@@ -163,21 +125,10 @@
             text-align: center;
             margin-top: 10px;
         }
+
     </style>
 </head>
 <body class="loaded">
-
-    <!-- Menu burger -->
-    <div class="menu">
-        <button onclick="toggleMenu()">☰</button>
-        <ul>
-            <li><a href="dashboard.html">Tableau de Bord</a></li>
-            <li><a href="verification.html">Vérification</a></li>
-            <li><a href="depot.html">Dépôt</a></li>
-            <li><a href="retrait.html">Retrait</a></li>
-            <li><a href="information.html">Informations</a></li>
-        </ul>
-    </div>
 
     <h1>Retrait & Convertisseur</h1>
 
@@ -211,20 +162,18 @@
         <div id="withdrawal-methods">
             <button type="button" onclick="selectWithdrawalMethod('mvola')">Mvola</button>
             <button type="button" onclick="selectWithdrawalMethod('orange')">Orange</button>
-            <button type="button" onclick="selectWithdrawalMethod('telma')">Telma</button>
             <button type="button" onclick="selectWithdrawalMethod('airtel')">Airtel</button>
         </div>
 
         <div id="withdrawal-info-container"></div>
+        <div id="withdrawal-phone-container"></div>
+        <div id="message-withdrawal"></div>
     </div>
 
     <div id="balance-error"></div>
 
-    <div id="message-withdrawal"></div>
-
     <script>
-        // Définir le solde du compte
-        let accountBalance = 0; // Solde initial, pas de dépôt effectué
+        let accountBalance = 0; // Solde initial
 
         function toggleMenu() {
             document.querySelector(".menu").classList.toggle("open");
@@ -259,7 +208,6 @@
                     conversionResult.textContent = "";
                 }
 
-                // Si le solde est 0, afficher un message d'erreur et désactiver le bouton
                 if (accountBalance === 0) {
                     balanceError.textContent = "Votre solde est insuffisant pour effectuer un retrait.";
                     submitButton.disabled = true;
@@ -271,31 +219,40 @@
 
             amountInput.addEventListener("input", updateConversion);
             currencySelect.addEventListener("change", updateConversion);
-
-            // Détection de la devise par défaut
-            const defaultCurrency = 'ariary';
-            currencySelect.value = defaultCurrency;
             updateConversion();
         });
 
-        // Fonction pour sélectionner le moyen de retrait
         function selectWithdrawalMethod(method) {
             const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
+            const withdrawalPhoneContainer = document.getElementById("withdrawal-phone-container");
             const messageWithdrawal = document.getElementById("message-withdrawal");
+
+            withdrawalPhoneContainer.innerHTML = ''; // Reset the input field
 
             if (method === 'mvola') {
                 withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
+                withdrawalPhoneContainer.innerHTML = `<label for="mvola-phone">Entrez votre numéro Mvola :</label>
+                                                     <input type="text" id="mvola-phone" placeholder="Numéro Mvola" />`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
             } else if (method === 'orange') {
                 withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
+                withdrawalPhoneContainer.innerHTML = `<label for="orange-phone">Entrez votre numéro Orange :</label>
+                                                     <input type="text" id="orange-phone" placeholder="Numéro Orange" />`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
-            } else if (method === 'telma') {
-                withdrawalInfoContainer.innerHTML = `<p>Telma - Exemple de numéro : +261 32 765 4321</p>`;
-                messageWithdrawal.textContent = "Veuillez entrer votre numéro Telma pour effectuer le retrait.";
             } else if (method === 'airtel') {
                 withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
+                withdrawalPhoneContainer.innerHTML = `<label for="airtel-phone">Entrez votre numéro Airtel :</label>
+                                                     <input type="text" id="airtel-phone" placeholder="Numéro Airtel" />`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
             }
+
+            const phoneInput = document.getElementById(`${method}-phone`);
+            phoneInput.addEventListener('input', function () {
+                const phoneNumber = phoneInput.value;
+                if (phoneNumber.length >= 10) {
+                    messageWithdrawal.textContent = `Numéro ${method.charAt(0).toUpperCase() + method.slice(1)} validé. Vous pouvez procéder au retrait.`;
+                }
+            });
         }
     </script>
 
