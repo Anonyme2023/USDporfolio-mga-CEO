@@ -8,57 +8,56 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e0f7fa;
+            background-color: #e0f7fa; /* Fond plus clair */
             margin: 0;
             padding: 0;
         }
 
         section {
             width: 100%;
-            max-width: 400px;
+            max-width: 360px; /* Réduction de la largeur du cadre */
             margin: 80px auto;
-            padding: 30px;
+            padding: 20px; /* Moins de padding pour que tout soit bien ajusté */
             background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
         }
 
         h1 {
-            color: #007BFF;
-            margin-bottom: 30px;
-            font-size: 26px;
-            font-weight: bold;
-            text-transform: uppercase;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
         .input-box {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Espacement réduit */
         }
 
         .input-box input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 12px;
+            padding-right: 3px; /* Ajouter un padding à droite pour ne pas que le texte se cache derrière l'icône */
+            border: 2px solid #007BFF; /* Bordure bleue pour plus de clarté */
+            border-radius: 8px;
             font-size: 16px;
-            border: 2px solid #007BFF;
-            border-radius: 25px;
-            background-color: #f4f8ff;
             color: #333;
-            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            transition: all 0.3s;
         }
 
         .input-box input:focus {
-            border-color: #0056b3;
+            border-color: #0056b3; /* Bordure plus foncée lors de la mise au point */
             background-color: #fff;
             outline: none;
         }
 
         .input-box i {
             position: absolute;
-            right: 15px;
+            right: 12px; /* Placer l'icône à droite */
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-50%); /* Centrer l'icône verticalement */
             color: #007BFF;
         }
 
@@ -66,7 +65,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .remember-forgot label {
@@ -86,35 +84,37 @@
 
         .login-btn {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
+            font-weight: bold;
         }
 
         .login-btn:hover {
             background-color: #0056b3;
         }
 
-        .error-message, .success-message {
-            font-size: 14px;
-            margin-top: 15px;
-        }
-
         .error-message {
-            color: #e74c3c;
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
         }
 
         .success-message {
-            color: #2ecc71;
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
         }
 
         .register-link {
+            text-align: center;
             margin-top: 20px;
         }
 
@@ -139,11 +139,12 @@
             color: #007BFF;
         }
 
+        /* Corrélation avec Binance */
         .binance-info {
             margin-top: 10px;
             font-size: 14px;
-            color: #333;
             text-align: center;
+            color: #333;
         }
 
         .binance-info a {
@@ -155,46 +156,9 @@
             text-decoration: underline;
         }
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            section {
-                max-width: 95%;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            .input-box input {
-                font-size: 14px;
-                padding: 12px;
-            }
-
-            .login-btn {
-                font-size: 14px;
-                padding: 12px;
-            }
-        }
-
         @media (max-width: 480px) {
             section {
-                max-width: 95%;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .input-box input {
-                font-size: 14px;
-                padding: 12px;
-            }
-
-            .login-btn {
-                font-size: 14px;
-                padding: 12px;
+                margin: 50px 20px;
             }
         }
     </style>
