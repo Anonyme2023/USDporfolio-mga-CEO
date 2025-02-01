@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,289 +13,281 @@
             color: white;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
-        }body.loaded {
-        opacity: 1;
-    }
+        }
+        body.loaded {
+            opacity: 1;
+        }
 
-    h1 {
-        text-align: center;
-        padding: 15px;
-        background: #003366;
-        margin: 0;
-        font-size: 1.5em;
-    }
+        h1 {
+            text-align: center;
+            padding: 15px;
+            background: #003366;
+            margin: 0;
+            font-size: 1.5em;
+        }
 
-    form, #withdrawal-method-container {
-        width: 90%;
-        margin: 15px auto;
-        background: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        color: black;
-    }
+        form, #withdrawal-method-container {
+            width: 90%;
+            margin: 15px auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: black;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-    input, select, button {
-        width: 100%;
-        padding: 12px;
-        font-size: 1em;
-        border: 2px solid #007BFF;
-        border-radius: 5px;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-    }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
 
-    button {
-        background-color: #007BFF;
-        color: white;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    button:hover {
-        background-color: #0056b3;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    #conversion-result {
-        text-align: center;
-        font-size: 1.2em;
-        font-weight: bold;
-        margin-top: 10px;
-    }
+        #conversion-result {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-    .menu {
-        background-color: #003366;
-        padding: 10px;
-        text-align: center;
-        position: relative;
-    }
+        .menu {
+            background-color: #003366;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
 
-    .menu button {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5em;
-        cursor: pointer;
-    }
+        .menu button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
 
-    .menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: none;
-        background: #002244;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 45px;
-    }
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            background: #002244;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 45px;
+        }
 
-    .menu ul li {
-        padding: 10px;
-        border-bottom: 1px solid #0056b3;
-    }
+        .menu ul li {
+            padding: 10px;
+            border-bottom: 1px solid #0056b3;
+        }
 
-    .menu ul li a {
-        text-decoration: none;
-        color: white;
-        font-size: 1.2em;
-        display: block;
-    }
+        .menu ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            display: block;
+        }
 
-    .menu.open ul {
-        display: block;
-    }
+        .menu.open ul {
+            display: block;
+        }
 
-    #withdrawal-methods {
-        margin-top: 20px;
-        text-align: center;
-    }
+        #withdrawal-method-container {
+            margin-top: 20px;
+            text-align: center;
+        }
 
-    #withdrawal-methods button {
-        background-color: #28a745;
-        margin-bottom: 10px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 1em;
-        cursor: pointer;
-        width: 100%;
-        margin-bottom: 15px;
-        transition: 0.3s;
-    }
+        select#withdrawal-method {
+            width: 50%;
+            margin: 10px auto;
+            padding: 10px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            font-size: 1em;
+        }
 
-    #withdrawal-methods button:hover {
-        background-color: #218838;
-    }
+        #withdrawal-info-container {
+            text-align: center;
+            padding: 15px;
+            margin-top: 10px;
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
 
-    #withdrawal-info-container {
-        text-align: center;
-        padding: 15px;
-        margin-top: 10px;
-        background: #f1f1f1;
-        border-radius: 8px;
-    }
+        #withdrawal-info-container p {
+            font-size: 1.2em;
+        }
 
-    #withdrawal-info-container p {
-        font-size: 1.2em;
-    }
+        #balance-error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
 
-    #balance-error {
-        color: red;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 15px;
-    }
-
-    #message-withdrawal {
-        color: #28a745;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 10px;
-    }
-</style>
-
+        #message-withdrawal {
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body class="loaded"><!-- Menu burger -->
-<div class="menu">
-    <button onclick="toggleMenu()">☰</button>
-    <ul>
-        <li><a href="dashboard.html">Tableau de Bord</a></li>
-        <li><a href="verification.html">Vérification</a></li>
-        <li><a href="depot.html">Dépôt</a></li>
-        <li><a href="retrait.html">Retrait</a></li>
-        <li><a href="information.html">Informations</a></li>
-    </ul>
-</div>
-
-<h1>Retrait & Convertisseur</h1>
-
-<!-- Formulaire -->
-<form id="withdrawal-form">
-    <label for="amount">Montant (Min 50) :</label>
-    <input type="number" id="amount" min="50" max="500" placeholder="Entrez un montant" required>
-
-    <label for="crypto">Choisir la cryptomonnaie :</label>
-    <select id="crypto">
-        <option value="usdt">USDT (TRC20)</option>
-        <option value="bitcoin">Bitcoin (BTC)</option>
-        <option value="litecoin">Litecoin (LTC)</option>
-    </select>
-
-    <label for="currency">Choisissez la devise :</label>
-    <select id="currency">
-        <option value="ariary">Ariary</option>
-        <option value="euro">Euro (€)</option>
-        <option value="usd">USD ($)</option>
-    </select>
-
-    <button type="submit" id="submit-button" disabled>Convertir</button>
-</form>
-
-<div id="conversion-result"></div>
-
-<!-- Section Retrait -->
-<div id="withdrawal-method-container">
-    <h2>Choisissez votre moyen de retrait</h2>
-    <div id="withdrawal-methods">
-        <button type="button" onclick="selectWithdrawalMethod('mvola')">Mvola</button>
-        <button type="button" onclick="selectWithdrawalMethod('orange')">Orange</button>
-        <button type="button" onclick="selectWithdrawalMethod('telma')">Telma</button>
-        <button type="button" onclick="selectWithdrawalMethod('airtel')">Airtel</button>
+<body class="loaded">
+    <!-- Menu burger -->
+    <div class="menu">
+        <button onclick="toggleMenu()">☰</button>
+        <ul>
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="verification.html">Vérification</a></li>
+            <li><a href="depot.html">Dépôt</a></li>
+            <li><a href="retrait.html">Retrait</a></li>
+            <li><a href="information.html">Informations</a></li>
+        </ul>
     </div>
 
-    <div id="withdrawal-info-container"></div>
-</div>
+    <h1>Retrait & Convertisseur</h1>
 
-<div id="balance-error"></div>
+    <!-- Formulaire -->
+    <form id="withdrawal-form">
+        <label for="amount">Montant (Min 50) :</label>
+        <input type="number" id="amount" min="50" max="500" placeholder="Entrez un montant" required>
 
-<div id="message-withdrawal"></div>
+        <label for="crypto">Choisir la cryptomonnaie :</label>
+        <select id="crypto">
+            <option value="usdt">USDT (TRC20)</option>
+            <option value="bitcoin">Bitcoin (BTC)</option>
+            <option value="litecoin">Litecoin (LTC)</option>
+        </select>
 
-<script>
-    // Définir le solde du compte
-    let accountBalance = 0; // Solde initial, pas de dépôt effectué
+        <label for="currency">Choisissez la devise :</label>
+        <select id="currency">
+            <option value="ariary">Ariary</option>
+            <option value="euro">Euro (€)</option>
+            <option value="usd">USD ($)</option>
+        </select>
 
-    function toggleMenu() {
-        document.querySelector(".menu").classList.toggle("open");
-    }
+        <button type="submit" id="submit-button" disabled>Convertir</button>
+    </form>
 
-    // Fonction pour la conversion automatique
-    document.addEventListener("DOMContentLoaded", function() {
-        const amountInput = document.getElementById("amount");
-        const currencySelect = document.getElementById("currency");
-        const conversionResult = document.getElementById("conversion-result");
-        const submitButton = document.getElementById("submit-button");
-        const balanceError = document.getElementById("balance-error");
-        const tauxConversion = 4800; // Taux fixe
+    <div id="conversion-result"></div>
 
-        function updateConversion() {
-            let montant = parseFloat(amountInput.value);
-            let devise = currencySelect.value;
-            let convertedAmount = 0;
+    <!-- Section Retrait -->
+    <div id="withdrawal-method-container">
+        <h2>Choisissez votre moyen de retrait</h2>
+        <select id="withdrawal-method" onchange="selectWithdrawalMethod(this.value)">
+            <option value="mvola">Mvola</option>
+            <option value="orange">Orange</option>
+            <option value="telma">Telma</option>
+            <option value="airtel">Airtel</option>
+        </select>
 
-            if (!isNaN(montant) && montant >= 50) {
-                if (devise === "ariary") {
-                    convertedAmount = montant * tauxConversion;
-                    conversionResult.textContent = `≈ ${convertedAmount.toLocaleString()} MGA`;
-                } else if (devise === "euro") {
-                    convertedAmount = montant / tauxConversion;
-                    conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} €`;
-                } else if (devise === "usd") {
-                    convertedAmount = montant / tauxConversion;
-                    conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} $`;
+        <div id="withdrawal-info-container"></div>
+    </div>
+
+    <div id="balance-error"></div>
+
+    <div id="message-withdrawal"></div>
+
+    <script>
+        // Définir le solde du compte
+        let accountBalance = 0; // Solde initial, pas de dépôt effectué
+
+        function toggleMenu() {
+            document.querySelector(".menu").classList.toggle("open");
+        }
+
+        // Fonction pour la conversion automatique
+        document.addEventListener("DOMContentLoaded", function() {
+            const amountInput = document.getElementById("amount");
+            const currencySelect = document.getElementById("currency");
+            const conversionResult = document.getElementById("conversion-result");
+            const submitButton = document.getElementById("submit-button");
+            const balanceError = document.getElementById("balance-error");
+            const tauxConversion = 4800; // Taux fixe
+
+            function updateConversion() {
+                let montant = parseFloat(amountInput.value);
+                let devise = currencySelect.value;
+                let convertedAmount = 0;
+
+                if (!isNaN(montant) && montant >= 50) {
+                    if (devise === "ariary") {
+                        convertedAmount = montant * tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toLocaleString()} MGA`;
+                    } else if (devise === "euro") {
+                        convertedAmount = montant / tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} €`;
+                    } else if (devise === "usd") {
+                        convertedAmount = montant / tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} $`;
+                    }
+                } else {
+                    conversionResult.textContent = "";
                 }
-            } else {
-                conversionResult.textContent = "";
+
+                // Si le solde est 0, afficher un message d'erreur et désactiver le bouton
+                if (accountBalance === 0) {
+                    balanceError.textContent = "Votre solde est insuffisant pour effectuer un retrait.";
+                    submitButton.disabled = true;
+                } else {
+                    balanceError.textContent = "";
+                    submitButton.disabled = false;
+                }
             }
 
-            // Si le solde est 0, afficher un message d'erreur et désactiver le bouton
-            if (accountBalance === 0) {
-                balanceError.textContent = "Votre solde est insuffisant pour effectuer un retrait.";
-                submitButton.disabled = true;
-            } else {
-                balanceError.textContent = "";
-                submitButton.disabled = false;
+            amountInput.addEventListener("input", updateConversion);
+            currencySelect.addEventListener("change", updateConversion);
+
+            // Détection de la devise par défaut
+            const defaultCurrency = 'ariary';
+            currencySelect.value = defaultCurrency;
+            updateConversion();
+        });
+
+        // Fonction pour sélectionner le moyen de retrait
+        function selectWithdrawalMethod(method) {
+            const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
+            const messageWithdrawal = document.getElementById("message-withdrawal");
+
+            if (method === 'mvola') {
+                withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
+            } else if (method === 'orange') {
+                withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
+            } else if (method === 'telma') {
+                withdrawalInfoContainer.innerHTML = `<p>Telma - Exemple de numéro : +261 32 765 4321</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Telma pour effectuer le retrait.";
+            } else if (method === 'airtel') {
+                withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
             }
         }
-
-        amountInput.addEventListener("input", updateConversion);
-        currencySelect.addEventListener("change", updateConversion);
-
-        // Détection de la devise par défaut
-        const defaultCurrency = 'ariary';
-        currencySelect.value = defaultCurrency;
-        updateConversion();
-    });
-
-    // Fonction pour sélectionner le moyen de retrait
-    function selectWithdrawalMethod(method) {
-        const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
-        const messageWithdrawal = document.getElementById("message-withdrawal");
-
-        if (method === 'mvola') {
-            withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
-            messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
-        } else if (method === 'orange') {
-            withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
-            messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
-        } else if (method === 'telma') {
-            withdrawalInfoContainer.innerHTML = `<p>Telma - Exemple de numéro : +261 32 765 4321</p>`;
-            messageWithdrawal.textContent = "Veuillez entrer votre numéro Telma pour effectuer le retrait.";
-        } else if (method === 'airtel') {
-            withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
-            messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
-        }
-    }
-</script>
+    </script>
 
 </body>
-</html>ajuste moi ce code
-
+</html>
