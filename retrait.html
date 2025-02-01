@@ -333,16 +333,13 @@
             const withdrawalPhoneLabel = document.getElementById("withdrawal-phone-label");
             const dropdownContent = document.querySelector(".dropdown-content");
 
-            if (method === 'mvola') {
-                withdrawalInfoContainer.innerHTML = `<p>Numéro Mvola : Exemple - +261 34 123 4567</p>`;
+            if (method === 'mvola') 
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
                 document.getElementById("withdrawal-phone-input").value = "+261 ";
-            } else if (method === 'orange') {
-                withdrawalInfoContainer.innerHTML = `<p>Numéro Orange : Exemple - +261 33 987 6543</p>`;
+            } else if (method === 'orange') 
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
                 document.getElementById("withdrawal-phone-input").value = "+261 ";
-            } else if (method === 'airtel') {
-                withdrawalInfoContainer.innerHTML = `<p>Numéro Airtel : Exemple - +261 31 111 2222</p>`;
+            } else if (method === 'airtel') {;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
                 document.getElementById("withdrawal-phone-input").value = "+261 ";
             }
