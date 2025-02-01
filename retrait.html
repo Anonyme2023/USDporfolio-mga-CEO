@@ -12,6 +12,12 @@
             padding: 0;
             background-color: #1E90FF; /* Bleu vif */
             color: white;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
         }
 
         h1 {
@@ -22,7 +28,6 @@
             font-size: 1.5em;
         }
 
-        /* Conteneurs et formulaires en pleine largeur */
         form, #withdrawal-method-container {
             width: 90%;
             margin: 15px auto;
@@ -110,13 +115,18 @@
             display: block;
         }
 
-        /* Affichage du menu au clic */
         .menu.open ul {
             display: block;
         }
+
+        /* Montants rapides */
+        #preset-amounts button {
+            margin-right: 10px;
+            background-color: #28a745;
+        }
     </style>
 </head>
-<body>
+<body class="loaded">
 
     <!-- Menu burger -->
     <div class="menu">
@@ -136,6 +146,12 @@
     <form id="withdrawal-form">
         <label for="amount">Montant (Min 50) :</label>
         <input type="number" id="amount" min="50" max="500" placeholder="Entrez un montant" required>
+
+        <div id="preset-amounts">
+            <button type="button" onclick="setAmount(50)">50</button>
+            <button type="button" onclick="setAmount(100)">100</button>
+            <button type="button" onclick="setAmount(200)">200</button>
+        </div>
 
         <label for="crypto">Choisir la cryptomonnaie :</label>
         <select id="crypto">
@@ -167,6 +183,79 @@
         function toggleMenu() {
             document.querySelector(".menu").classList.toggle("open");
         }
+
+        // Fonction pour la conversion automatique
+        document.addEventListener("DOMContentLoaded", function() {
+            const amountInput = document.getElementById("amount");
+            const currencySelect = document.getElementById("currency");
+            const conversionResult = document.getElementById("conversion-result");
+            const tauxConversion = 4800; // Taux fixe
+
+            function updateConversion() {
+                let montant = parseFloat(amountInput.value);
+                let devise = currencySelect.value;
+                let convertedAmount = 0;
+
+                if (!isNaN(montant) && montant >= 50) {
+                    if (devise === "ariary") {
+                        convertedAmount = montant * tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toLocaleString()} MGA`;
+                    } else if (devise === "euro") {
+                        convertedAmount = montant / tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} €`;
+                    } else if (devise === "usd") {
+                        convertedAmount = montant / tauxConversion;
+                        conversionResult.textContent = `≈ ${convertedAmount.toFixed(2)} $`;
+                    }
+                } else {
+                    conversionResult.textContent = "";
+                }
+            }
+
+            amountInput.addEventListener("input", updateConversion);
+            currencySelect.addEventListener("change", updateConversion);
+
+            // Détection de la devise par défaut (par exemple selon la région de l'utilisateur)
+            const defaultCurrency = 'ariary'; // A modifier selon la logique de localisation
+            currencySelect.value = defaultCurrency;
+            updateConversion();
+        });
+
+        // Fonction pour les montants rapides
+        function setAmount(value) {
+            document.getElementById("amount").value = value;
+            document.getElementById("amount").dispatchEvent(new Event("input"));
+        }
+
+        // Moyens de retrait en fonction de la crypto sélectionnée
+        document.addEventListener("DOMContentLoaded", function() {
+            const cryptoSelect = document.getElementById("crypto");
+            const withdrawalMethodSelect = document.getElementById("withdrawal-method");
+            const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
+
+            const withdrawalMethods = {
+                usdt: ["Binance", "Trust Wallet", "KuCoin"],
+                bitcoin: ["Exodus", "Coinbase", "Ledger"],
+                litecoin: ["Atomic Wallet", "Litewallet", "Ledger"]
+            };
+
+            function updateWithdrawalMethods() {
+                let selectedCrypto = cryptoSelect.value;
+                withdrawalMethodSelect.innerHTML = ""; // Réinitialiser
+
+                withdrawalMethods[selectedCrypto].forEach(method => {
+                    let option = document.createElement("option");
+                    option.value = method.toLowerCase().replace(" ", "-");
+                    option.textContent = method;
+                    withdrawalMethodSelect.appendChild(option);
+                });
+
+                withdrawalInfoContainer.innerHTML = `<p>Sélectionnez une méthode compatible avec ${selectedCrypto.toUpperCase()}.</p>`;
+            }
+
+            cryptoSelect.addEventListener("change", updateWithdrawalMethods);
+            updateWithdrawalMethods(); // Initialisation au chargement
+        });
     </script>
 
 </body>
