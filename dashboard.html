@@ -7,9 +7,9 @@
     <style>
         /* Définition des couleurs comme variables */
         :root {
-            --primary-bg-color: #2e322e; /* Couleur de fond du menu */
+            --primary-bg-color: #34495e; /* Menu bleu sombre */
             --primary-color: #3498db; /* Bleu */
-            --hover-color: #2980b9; /* Couleur au survol */
+            --hover-color: #2980b9; /* Couleur bleue au survol */
             --text-color: #ecf0f1; /* Couleur du texte */
             --button-color: #e53935; /* Rouge du bouton de déconnexion */
             --button-hover-color: #c62828; /* Rouge au survol du bouton */
@@ -44,7 +44,7 @@
 
         /* Menu de navigation */
         .menu {
-            background-color: var(--primary-bg-color);
+            background-color: var(--primary-bg-color); /* Menu bleu */
             overflow: hidden;
             display: flex;
             justify-content: space-between;
@@ -70,7 +70,7 @@
         }
 
         .menu ul li a:hover {
-            color: var(--primary-color);
+            color: var(--hover-color); /* Couleur bleue claire au survol */
         }
 
         .menu .logout {
@@ -97,7 +97,7 @@
             text-align: center;
             margin-top: 20px;
             padding: 10px;
-            background-color: var(--primary-bg-color);
+            background-color: var(--primary-bg-color); /* Couleur du fond du message */
             border-radius: 5px;
             color: #fff;
         }
