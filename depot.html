@@ -116,6 +116,18 @@
             background-color: #1f618d;
         }
 
+        /* Style pour le message de confirmation */
+        .copy-message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #e74c3c; /* Rouge */
+            border-radius: 5px;
+            text-align: center;
+        }
+
         /* Responsive design pour les petits écrans */
         @media (max-width: 768px) {
             #deposit-address-container {
@@ -178,6 +190,7 @@
             <label for="btc-address">Adresse BTC :</label>
             <input type="text" id="btc-address" value="16DAqeS8j8vp7aWFuYw5kiSAnsPUFTY9Lm" readonly>
             <button onclick="copyToClipboard('btc-address')">Copier</button>
+            <div id="btc-message" class="copy-message">Adresse copiée !</div>
         </div>
 
         <!-- Adresse USDT TRC20 -->
@@ -185,6 +198,7 @@
             <label for="usdt-address">Adresse USDT TRC20 :</label>
             <input type="text" id="usdt-address" value="TN7G7wCoeZz2VTnkAuKjfwAjqj6dsMGqKZ" readonly>
             <button onclick="copyToClipboard('usdt-address')">Copier</button>
+            <div id="usdt-message" class="copy-message">Adresse copiée !</div>
         </div>
 
         <!-- Adresse LTC -->
@@ -192,6 +206,7 @@
             <label for="ltc-address">Adresse LTC :</label>
             <input type="text" id="ltc-address" value="ltc1q89ccn6w88v04hm9wdgdcjs7dh73cklergkjrem" readonly>
             <button onclick="copyToClipboard('ltc-address')">Copier</button>
+            <div id="ltc-message" class="copy-message">Adresse copiée !</div>
         </div>
     </div>
 
@@ -202,7 +217,13 @@
             inputField.select();
             inputField.setSelectionRange(0, 99999); // Pour mobile
             document.execCommand('copy');
-            alert("Adresse copiée !");
+            
+            // Afficher le message de confirmation
+            const messageElement = document.getElementById(elementId + '-message');
+            messageElement.style.display = 'block'; // Afficher le message
+            setTimeout(() => {
+                messageElement.style.display = 'none'; // Cacher après 2 secondes
+            }, 2000);
         }
     </script>
 
