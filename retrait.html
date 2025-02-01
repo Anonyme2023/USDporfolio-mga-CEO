@@ -262,7 +262,7 @@
 
         <div id="withdrawal-phone" class="input-container">
             <label for="withdrawal-phone-input" id="withdrawal-phone-label">Entrez votre numéro de retrait :</label>
-            <input type="text" id="withdrawal-phone-input" placeholder="Numéro de retrait" />
+            <input type="text" id="withdrawal-phone-input" placeholder="Exemple: +261 34 123 4567" />
         </div>
     </div>
 
@@ -331,21 +331,28 @@
             const messageWithdrawal = document.getElementById("message-withdrawal");
             const withdrawalPhoneInput = document.getElementById("withdrawal-phone");
             const withdrawalPhoneLabel = document.getElementById("withdrawal-phone-label");
+            const dropdownContent = document.querySelector(".dropdown-content");
 
             if (method === 'mvola') {
-                withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
+                withdrawalInfoContainer.innerHTML = `<p>Numéro Mvola : Exemple - +261 34 123 4567</p>`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
+                document.getElementById("withdrawal-phone-input").value = "+261 ";
             } else if (method === 'orange') {
-                withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
+                withdrawalInfoContainer.innerHTML = `<p>Numéro Orange : Exemple - +261 33 987 6543</p>`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
+                document.getElementById("withdrawal-phone-input").value = "+261 ";
             } else if (method === 'airtel') {
-                withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
+                withdrawalInfoContainer.innerHTML = `<p>Numéro Airtel : Exemple - +261 31 111 2222</p>`;
                 messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
+                document.getElementById("withdrawal-phone-input").value = "+261 ";
             }
 
             // Afficher le champ de saisie du numéro en fonction de la méthode choisie
             withdrawalPhoneInput.style.display = "block";
             withdrawalPhoneLabel.style.display = "block";
+
+            // Fermer le menu déroulant
+            dropdownContent.style.display = "none";
         }
     </script>
 </body>
