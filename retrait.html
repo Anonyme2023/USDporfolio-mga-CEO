@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retrait et Convertisseur</title>
     <style>
-        /* Style global optimisé pour mobile */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -67,7 +66,6 @@
             background-color: #0056b3;
         }
 
-        /* Affichage du résultat */
         #conversion-result {
             text-align: center;
             font-size: 1.2em;
@@ -75,7 +73,6 @@
             margin-top: 10px;
         }
 
-        /* Menu burger pour mobile */
         .menu {
             background-color: #003366;
             padding: 10px;
@@ -119,20 +116,52 @@
             display: block;
         }
 
-        /* Section retrait */
         #withdrawal-methods {
             margin-top: 20px;
+            text-align: center;
         }
 
         #withdrawal-methods button {
             background-color: #28a745;
             margin-bottom: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        #withdrawal-methods button:hover {
+            background-color: #218838;
+        }
+
+        #withdrawal-info-container {
+            text-align: center;
+            padding: 15px;
+            margin-top: 10px;
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        #withdrawal-info-container p {
+            font-size: 1.2em;
         }
 
         #balance-error {
             color: red;
             font-weight: bold;
             text-align: center;
+            margin-top: 15px;
+        }
+
+        #message-withdrawal {
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -178,10 +207,11 @@
 
     <!-- Section Retrait -->
     <div id="withdrawal-method-container">
-        <h2>Moyen de Retrait</h2>
+        <h2>Choisissez votre moyen de retrait</h2>
         <div id="withdrawal-methods">
             <button type="button" onclick="selectWithdrawalMethod('mvola')">Mvola</button>
             <button type="button" onclick="selectWithdrawalMethod('orange')">Orange</button>
+            <button type="button" onclick="selectWithdrawalMethod('telma')">Telma</button>
             <button type="button" onclick="selectWithdrawalMethod('airtel')">Airtel</button>
         </div>
 
@@ -189,6 +219,8 @@
     </div>
 
     <div id="balance-error"></div>
+
+    <div id="message-withdrawal"></div>
 
     <script>
         // Définir le solde du compte
@@ -249,12 +281,20 @@
         // Fonction pour sélectionner le moyen de retrait
         function selectWithdrawalMethod(method) {
             const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
+            const messageWithdrawal = document.getElementById("message-withdrawal");
+
             if (method === 'mvola') {
                 withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Mvola pour effectuer le retrait.";
             } else if (method === 'orange') {
                 withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Orange pour effectuer le retrait.";
+            } else if (method === 'telma') {
+                withdrawalInfoContainer.innerHTML = `<p>Telma - Exemple de numéro : +261 32 765 4321</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Telma pour effectuer le retrait.";
             } else if (method === 'airtel') {
-                withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 32 765 4321</p>`;
+                withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 31 111 2222</p>`;
+                messageWithdrawal.textContent = "Veuillez entrer votre numéro Airtel pour effectuer le retrait.";
             }
         }
     </script>
