@@ -119,10 +119,20 @@
             display: block;
         }
 
-        /* Montants rapides */
-        #preset-amounts button {
-            margin-right: 10px;
+        /* Section retrait */
+        #withdrawal-methods {
+            margin-top: 20px;
+        }
+
+        #withdrawal-methods button {
             background-color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        #balance-error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
@@ -147,12 +157,6 @@
         <label for="amount">Montant (Min 50) :</label>
         <input type="number" id="amount" min="50" max="500" placeholder="Entrez un montant" required>
 
-        <div id="preset-amounts">
-            <button type="button" onclick="setAmount(50)">50</button>
-            <button type="button" onclick="setAmount(100)">100</button>
-            <button type="button" onclick="setAmount(200)">200</button>
-        </div>
-
         <label for="crypto">Choisir la cryptomonnaie :</label>
         <select id="crypto">
             <option value="usdt">USDT (TRC20)</option>
@@ -167,19 +171,29 @@
             <option value="usd">USD ($)</option>
         </select>
 
-        <button type="submit">Convertir</button>
+        <button type="submit" id="submit-button" disabled>Convertir</button>
     </form>
 
     <div id="conversion-result"></div>
 
-    <!-- Moyens de retrait -->
+    <!-- Section Retrait -->
     <div id="withdrawal-method-container">
-        <h2>Moyen de retrait</h2>
-        <select id="withdrawal-method"></select>
+        <h2>Moyen de Retrait</h2>
+        <div id="withdrawal-methods">
+            <button type="button" onclick="selectWithdrawalMethod('mvola')">Mvola</button>
+            <button type="button" onclick="selectWithdrawalMethod('orange')">Orange</button>
+            <button type="button" onclick="selectWithdrawalMethod('airtel')">Airtel</button>
+        </div>
+
         <div id="withdrawal-info-container"></div>
     </div>
 
+    <div id="balance-error"></div>
+
     <script>
+        // Définir le solde du compte
+        let accountBalance = 0; // Solde initial, pas de dépôt effectué
+
         function toggleMenu() {
             document.querySelector(".menu").classList.toggle("open");
         }
@@ -189,6 +203,8 @@
             const amountInput = document.getElementById("amount");
             const currencySelect = document.getElementById("currency");
             const conversionResult = document.getElementById("conversion-result");
+            const submitButton = document.getElementById("submit-button");
+            const balanceError = document.getElementById("balance-error");
             const tauxConversion = 4800; // Taux fixe
 
             function updateConversion() {
@@ -210,52 +226,37 @@
                 } else {
                     conversionResult.textContent = "";
                 }
+
+                // Si le solde est 0, afficher un message d'erreur et désactiver le bouton
+                if (accountBalance === 0) {
+                    balanceError.textContent = "Votre solde est insuffisant pour effectuer un retrait.";
+                    submitButton.disabled = true;
+                } else {
+                    balanceError.textContent = "";
+                    submitButton.disabled = false;
+                }
             }
 
             amountInput.addEventListener("input", updateConversion);
             currencySelect.addEventListener("change", updateConversion);
 
-            // Détection de la devise par défaut (par exemple selon la région de l'utilisateur)
-            const defaultCurrency = 'ariary'; // A modifier selon la logique de localisation
+            // Détection de la devise par défaut
+            const defaultCurrency = 'ariary';
             currencySelect.value = defaultCurrency;
             updateConversion();
         });
 
-        // Fonction pour les montants rapides
-        function setAmount(value) {
-            document.getElementById("amount").value = value;
-            document.getElementById("amount").dispatchEvent(new Event("input"));
-        }
-
-        // Moyens de retrait en fonction de la crypto sélectionnée
-        document.addEventListener("DOMContentLoaded", function() {
-            const cryptoSelect = document.getElementById("crypto");
-            const withdrawalMethodSelect = document.getElementById("withdrawal-method");
+        // Fonction pour sélectionner le moyen de retrait
+        function selectWithdrawalMethod(method) {
             const withdrawalInfoContainer = document.getElementById("withdrawal-info-container");
-
-            const withdrawalMethods = {
-                usdt: ["Binance", "Trust Wallet", "KuCoin"],
-                bitcoin: ["Exodus", "Coinbase", "Ledger"],
-                litecoin: ["Atomic Wallet", "Litewallet", "Ledger"]
-            };
-
-            function updateWithdrawalMethods() {
-                let selectedCrypto = cryptoSelect.value;
-                withdrawalMethodSelect.innerHTML = ""; // Réinitialiser
-
-                withdrawalMethods[selectedCrypto].forEach(method => {
-                    let option = document.createElement("option");
-                    option.value = method.toLowerCase().replace(" ", "-");
-                    option.textContent = method;
-                    withdrawalMethodSelect.appendChild(option);
-                });
-
-                withdrawalInfoContainer.innerHTML = `<p>Sélectionnez une méthode compatible avec ${selectedCrypto.toUpperCase()}.</p>`;
+            if (method === 'mvola') {
+                withdrawalInfoContainer.innerHTML = `<p>Mvola - Exemple de numéro : +261 34 123 4567</p>`;
+            } else if (method === 'orange') {
+                withdrawalInfoContainer.innerHTML = `<p>Orange - Exemple de numéro : +261 33 987 6543</p>`;
+            } else if (method === 'airtel') {
+                withdrawalInfoContainer.innerHTML = `<p>Airtel - Exemple de numéro : +261 32 765 4321</p>`;
             }
-
-            cryptoSelect.addEventListener("change", updateWithdrawalMethods);
-            updateWithdrawalMethods(); // Initialisation au chargement
-        });
+        }
     </script>
 
 </body>
